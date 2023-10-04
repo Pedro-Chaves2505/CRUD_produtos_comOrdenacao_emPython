@@ -11,9 +11,6 @@ def reordena_ids(estrutura_de_dados, tam):
     estrutura_de_dados[i]["id"] = i
   return estrutura_de_dados
 
-#essa função pode se tornar mais genérica, como: cria arquivo, coloca cabeçalho, coloca
-#no arquivo csv a lista de dicionários - ou seja, ser uma função que transforma uma
-#lista de dicionários em um csv
 def atualiza_registros_em_produto_txt(nome_arquivo, produtos, qtd_registros):
   with open(nome_arquivo, "w") as arquivo:
     arquivo.write('id,nome,descricao,peso,valor,fornecedor\n')
@@ -34,9 +31,6 @@ def verifica_cria_arquivo(nome_arquivo, conteudo_inicial):
     return True
     
 def le_linha_csv(linha):
-#tentar fazer o split segundo as virgulas, em seguida
-#tirar o \n do último campo com replace. Somente vou testar o que acontece
-#quando faço um split em uma lista. 
   info_linha = []
   info_linha= linha.split(',')
   last_idx = len(info_linha) - 1
@@ -67,13 +61,6 @@ password = input('password: ')
 #puxando arquivo para autenticação
 verifica_cria_arquivo("./usuario.txt", "root\n123456")
 
-#Criando a autenticação. Primeiro, vamos extrair o login e senha corretos
-#do arquivo, em seguida tirar o '\n' do login.
-#Depois vamos comparar as variáveis username e password 
-#com a do arquivo e não permiti rpassar para a próxima estrutura 
-#do programa enquanto não informar o username e password corretos.
-#Para realizar a verificação foi posto um while.
-
 
 #vai ser um read, "r", pois queremos extrair informações desse txt
 with open("./usuario.txt", "r") as arquivo:
@@ -92,9 +79,6 @@ while username != login_info[0] or password != login_info[1]:
   password = input('password: ')
 
 print(f'\nOlá, {username}!\n\n')
-
-#Quando iniciar o programa, já tem de puxar dos dados persistidos em 
-#produtos.txt
 
 
 tem_prod_txt = verifica_cria_arquivo("./produtos.txt", "id,nome,descricao,peso,valor,fornecedor\n")
@@ -164,8 +148,6 @@ while resp != 6:
       
     case 3:
       produtos.append({})
-
-      #tem o problema, pois não et
       
       print('\n')
       produtos[next_id]['id'] = next_id
@@ -199,12 +181,6 @@ while resp != 6:
         
           field = input('Digite o campo que deseja editar:') 
           produtos[edit_idx][field] = input('Digite o novo valor: ')                  
-          #Aqui, vamos alterar um item específico da lista. Vamos usar o 
-          #readlines para deixar todas as informações de um produto 
-          #associadas a um índice na lista. Em seguida, vamos alterar
-          #o produto cujo índice é igual a edit_idx. Depois usar write
-          #para devolver ao arquivo
-
           
           atualiza_registros_em_produto_txt("./produtos.txt", produtos, qtd_produtos)
             
